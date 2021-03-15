@@ -1,0 +1,33 @@
+﻿<Window x:Class="NapoletanBot.Net.Environment.Window.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NapoletanBot.Net.Environment.Window"
+        mc:Ignorable="d"
+        Title="Settings" Height="388" Width="498">
+    <Grid Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF06090F"/>
+                <GradientStop Color="#FF161B22" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button Name="MediaBtn"      Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Media"      HorizontalAlignment="Left" Margin="10,30,0,0"  VerticalAlignment="Top" Width="115" Click="MediaBtn_Click"/>
+        <Button Name="AnimationsBtn" Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Animations" HorizontalAlignment="Left" Margin="10,70,0,0"  VerticalAlignment="Top" Width="115" Click="AnimationsBtn_Click"/>
+        <Button Name="AudiosBtn"     Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Audios"     HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="115" Click="AudiosBtn_Click"/>
+        <Button Name="ContactsBtn"   Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Contacts"   HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="115" Click="ContactsBtn_Click"/>
+        <Button Name="DocumentsBtn"  Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Documents"  HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="115" Click="DocumentsBtn_Click"/>
+        <Button Name="GamesBtn"      Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Games"      HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="115" Click="GamesBtn_Click"/>
+        <Button Name="TextBtn"       Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Text"       HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Width="115" Click="TextBtn_Click"/>
+        <Button Name="StickerBtn"    Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Stickers"   HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Width="115" Click="StickersBtn_Click"/>
+        <Label Foreground="Azure" Content="Allowed Messages:" HorizontalAlignment="Left" Margin="6,5,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
