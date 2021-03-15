@@ -31,11 +31,11 @@ namespace NapoletanBot.Net
             DebugConsole.AppendText("StartButton\n");
             var botInstance = new TelegramBot(TokenTextBox.Text, this);
         }
-
+        public static Environment.Window.Settings settings;
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            var settingsWindow = new Environment.Window.Settings();
-            settingsWindow.Show();
+            settings = new Environment.Window.Settings();
+            settings.Show();
         }
     }
 }

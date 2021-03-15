@@ -86,5 +86,14 @@ namespace NapoletanBot.Net.Environment.Window
                 MediaBtn.Background = (Brush)new BrushConverter().ConvertFrom("#16E601");
             MediaAllowed = !MediaAllowed;
         }
+
+        private void JoinBannerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (JoinBanner)
+                JoinBannerBtn.Background = (Brush)new BrushConverter().ConvertFrom("#E8561F");
+            else
+                JoinBannerBtn.Background= (Brush)new BrushConverter().ConvertFrom("#16E601");
+            JoinBanner = !JoinBanner;
+        }
     }
 }

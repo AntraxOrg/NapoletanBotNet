@@ -1,9 +1,15 @@
-﻿using System;
+﻿using NapoletanBot.Net.Environment.Code;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Globalization;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
@@ -17,11 +23,14 @@ namespace NapoletanBot.Net.Environment.Code
         public TelegramBot(string token, MainWindow mainWindow)
         {
             mainWindow1 = mainWindow;
+            mainWindow.DebugConsole.AppendText("Inside Cstor\n");
             InstanceBot(token);
+            mainWindow.DebugConsole.AppendText("Outside Cstor\n");
         }
 
         public static void InstanceBot(string token)
         {
+            mainWindow1.DebugConsole.AppendText("Inside InstanceBot\n");
             try
             {
                 var botClient = new TelegramBotClient(token);
@@ -90,6 +99,9 @@ namespace NapoletanBot.Net.Environment.Code
                 _ when msgEvent.Message.Sticker is not null && !Settings.MsgTypes.StickerAllowed
                     => Worker.DeleteUnallowedMessage(msgStruct),
 
+                _ when msgEvent.Message.NewChatMembers is not null && Settings.MsgTypes.JoinBanner
+                    => Worker.SendJoinBanner(msgEvent.Message.From.Username, await TelegramBot.Instance.telegramBotClient.GetUserProfilePhotosAsync(msgEvent.Message.From.Id)),
+
                 _ => Worker.DoNothing(),
             };
             await unallowedMessage;
@@ -117,6 +129,39 @@ namespace NapoletanBot.Net.Environment.Code
             return;
         }
 
+        public static async Task SendJoinBanner(string user, Telegram.Bot.Types.UserProfilePhotos userPhotos)
+        {
+            var rand = new Random();
+            var fileName = $"{rand.Next(0, 99999)}{rand.Next(0, 99999)}{rand.Next(0, 99999)}";
+            using (var image = Image.FromFile("Background.png"))
+            {
+                var tempBitmap = new Bitmap(image.Width, image.Height);
+                using (Graphics g = Graphics.FromImage(tempBitmap))
+                {
+                    g.DrawImage(image, 0, 0);
+                    tempBitmap.Save(fileName+".bmp", ImageFormat.Png);
+                }
+
+                var font = new Font("Segoe UI", 40);
+                var textSize = ImageService.GetTextSizeF(user, font, System.Drawing.Size.Empty);
+                var centeredPos = ImageService.CenterPoint(((int)textSize.Width, (int)textSize.Height / 3), (tempBitmap.Width, tempBitmap.Height / 3));
+
+                await TelegramBot.Instance.telegramBotClient.GetInfoAndDownloadFileAsync(userPhotos.Photos[0][0].FileId, File.OpenWrite($"{fileName}_logo.bmp"));
+
+                using (var profilePic = Image.FromFile($"{fileName}_logo.bmp"))
+                {
+                    var centeredPosImg = ImageService.CenterPoint((profilePic.Width, profilePic.Height / 2), (profilePic.Width, profilePic.Height / 3));
+                    var newImg = ImageService.WriteTextOnImage(tempBitmap, user, font, System.Drawing.Color.FromArgb(19, 19, 19), centeredPos);
+                    ImageService.WriteImageOnImage(newImg, profilePic, centeredPosImg).Save(fileName+".bmp");
+                }
+
+                using (Stream source = File.OpenRead(fileName + ".bmp"))
+                {
+                    await TelegramBot.Instance.telegramBotClient.SendPhotoAsync(-1001398644811, new Telegram.Bot.Types.InputFiles.InputOnlineFile(source));
+                }
+            }
+        }
+
         public static async Task DoNothing() { return;  }
     }
 
@@ -132,6 +177,7 @@ namespace NapoletanBot.Net.Environment.Code
             public static bool GameAllowed { get; set; } = true;
             public static bool TextAllowed { get; set; } = true;
             public static bool StickerAllowed { get; set; } = true;
+            public static bool JoinBanner { get; set; } = true;
         }
     }
 }

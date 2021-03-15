@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NapoletanBot.Net.Environment.Window"
         mc:Ignorable="d"
-        Title="Settings" Height="388" Width="498">
+        Title="Settings" Height="430" Width="498">
     <Grid Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -28,6 +28,9 @@
         <Button Name="GamesBtn"      Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Games"      HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="115" Click="GamesBtn_Click"/>
         <Button Name="TextBtn"       Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Text"       HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Width="115" Click="TextBtn_Click"/>
         <Button Name="StickerBtn"    Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Stickers"   HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Width="115" Click="StickersBtn_Click"/>
+        <Button Name="JoinBannerBtn" Style="{DynamicResource RoundButton}" Background="#FF16E601" Content="Join Banner"   HorizontalAlignment="Left" Margin="157,190,0,0" VerticalAlignment="Top" Width="84" Click="JoinBannerBtn_Click" Grid.Column="1"/>
         <Label Foreground="Azure" Content="Allowed Messages:" HorizontalAlignment="Left" Margin="6,5,0,0" VerticalAlignment="Top"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="157,248,0,0" VerticalAlignment="Top" Width="200" Source="/Environment/Window/Background.png"/>
+        <Label Foreground="Azure" Content="Join Banner:" HorizontalAlignment="Left" Margin="157,222,0,0" VerticalAlignment="Top" Grid.Column="1"/>
     </Grid>
 </Window>
