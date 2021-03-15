@@ -17,14 +17,11 @@ namespace NapoletanBot.Net.Environment.Code
         public TelegramBot(string token, MainWindow mainWindow)
         {
             mainWindow1 = mainWindow;
-            mainWindow.DebugConsole.AppendText("Inside Cstor\n");
             InstanceBot(token);
-            mainWindow.DebugConsole.AppendText("Outside Cstor\n");
         }
 
         public static void InstanceBot(string token)
         {
-            mainWindow1.DebugConsole.AppendText("Inside InstanceBot\n");
             try
             {
                 var botClient = new TelegramBotClient(token);
